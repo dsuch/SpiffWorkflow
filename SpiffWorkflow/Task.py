@@ -275,7 +275,7 @@ class Task(object):
         COMPLETED. This would otherwise be invalid.
         """
         self._setstate(state, True)
-        self.last_state_change = datetime.utcnow
+        self.last_state_change = datetime.utcnow()
 
     def _has_state(self, state):
         """
