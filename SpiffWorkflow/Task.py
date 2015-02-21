@@ -15,9 +15,13 @@ from __future__ import division
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+# stdlib
 import logging
-import time
+from datetime import datetime
 from uuid import uuid4
+
+# SpiffWorkflow
 from SpiffWorkflow.exceptions import WorkflowException
 
 LOG = logging.getLogger(__name__)
@@ -179,7 +183,7 @@ class Task(object):
         self.task_spec = task_spec
         self.id = uuid4()
         self.thread_id = self.__class__.thread_id_pool
-        self.last_state_change = time.time()
+        self.last_state_change = datetime.utcnow()
         self.data = {}
         self.internal_data = {}
         if parent is not None:
@@ -271,7 +275,7 @@ class Task(object):
         COMPLETED. This would otherwise be invalid.
         """
         self._setstate(state, True)
-        self.last_state_change = time.time()
+        self.last_state_change = datetime.utcnow
 
     def _has_state(self, state):
         """
