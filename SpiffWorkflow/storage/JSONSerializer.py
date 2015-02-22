@@ -13,8 +13,13 @@ from __future__ import division
 # You should have received a copy of the GNU Lesser General Public
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+# stdlib
 import json
 import uuid
+from datetime import datetime
+
+# SpiffWorkflow
 from SpiffWorkflow.storage import DictionarySerializer
 from SpiffWorkflow.storage.Serializer import Serializer
 from SpiffWorkflow.operators import Attrib
@@ -42,6 +47,9 @@ def default(obj):
         
     if isinstance(obj, Attrib):
         return {'__attrib__': obj.name}
+
+    if isinstance(obj, datetime):
+        return obj.isoformat()
 
     raise TypeError('%r is not JSON serializable' % obj)
 
